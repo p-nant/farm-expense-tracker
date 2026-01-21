@@ -1,0 +1,54 @@
+/* Form styling */
+#expenseForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  gap: 15px;
+}
+
+#expenseForm label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#expenseForm input,
+#expenseForm textarea,
+#expenseForm select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#expenseForm button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#expenseForm button:hover {
+  background-color: #45a049;
+}
+
+/* Table styling */
+#expensesTable {
+  margin-top: 30px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#expensesTable th,
+#expensesTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+#expensesTable th {
+  background-color: #4CAF50;
+  color: white;
+}
