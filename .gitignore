@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+
+# Node (if you use Node.js later)
+node_modules/
+package-lock.json
+
+# Python (if you use Python later)
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
