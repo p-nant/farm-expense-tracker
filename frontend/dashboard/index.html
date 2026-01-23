@@ -4,20 +4,49 @@
   <meta charset="UTF-8">
   <title>Farm Expense Dashboard</title>
   <link rel="stylesheet" href="../shared/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <nav>
   <a href="../entry/index.html">Data Entry</a> |
   <a href="index.html">Dashboard</a>
 </nav>
+  
+  <header class="header">
+    <h1>Expense Dashboard</h1>
+    <p>Summary view for stakeholders</p>
+  </header>
 
-  <h1>Dashboard</h1>
-  <p>Summary view for stakeholders (coming soon).</p>
+  <main>
+    <section class="summary">
+      <h2>Expense Summary</h2>
+      <p>Total Expenses: UGX <span id="dashTotalExpenses">0.00</span></p>
+      <p>Total Records: <span id="dashExpenseCount">0</span></p>
+    </section>
 
-  <ul>
-    <li>Total expenses</li>
-    <li>Expenses by category</li>
-    <li>Monthly trends</li>
-  </ul>
+    <section class="expenses-section">
+      <h3>By Cost Centre</h3>
+      <div class="chart-row">
+        <div class="chart-card">
+          <h4>Cost Centre Share</h4>
+          <canvas id="costCentreChart" width="320" height="320"></canvas>
+        </div>
+        <div class="table-card">
+      <table id="dashCostCentreTable">
+        <thead>
+          <tr>
+            <th>Cost Centre</th>
+            <th>Records</th>
+            <th>Total (UGX)</th>
+          </tr>
+        </thead>
+        <tbody id="dashCostCentreBody"></tbody>
+      </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>

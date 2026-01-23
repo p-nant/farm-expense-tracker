@@ -24,7 +24,8 @@
 ## 🧐 About <a name = "about"></a>
 
 A simple full-stack web application to track farm expenses, designed with separate layers:
-1. Data Entry - to be used by the farm staff to input expenses related to the farm activities. 2. Dashboard - used by stakeholders to view summaries, totals, and trends for decision making.
+1. Data Entry - to be used by the farm staff to input expenses related to the farm activities. 
+2. Dashboard - used by stakeholders to view summaries, totals, and trends for decision making.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -34,23 +35,40 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them.
 
-- Python 3.10+ (for the backend, later)
-- PostgreSQL (for storing expenses)
-- A modern web browser (Chrome, Edge, Firefox)
+- Python 3.10+ (for the FastAPI backend)
+- SQLite (comes with Python)
+- A modern web browser (Chrome, Edge, Firefox, Safari)
 - Optional: VS Code or any code editor
-- Node/npm not required yet
-- Backend placeholder exists in /backend
+- Optional: DB Browser for SQLite (to view database)
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running.
 
-1. Clone the repository:
-2. Open the frontend entry page in your browser:
-3. Open the dashboard page in your browser:
-At this stage, data is stored in the browser memory (JavaScript array). Backend integration will come later.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/p-nant/farm-expense-tracker
+   cd farm-expense-tracker
+   ```
 
-Since the project currently doesn’t have automated tests,
+2. **Set up the backend:**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   python main.py
+   ```
+   The backend will run on `http://localhost:8000`
+
+3. **Open the frontend entry page in your browser:**
+   - Open `frontend/entry/index.html` in your browser
+   - The form will automatically connect to the backend API
+   - Data is persisted in `backend/expenses.db` SQLite database
+
+4. **View API documentation:**
+   - Navigate to `http://localhost:8000/docs` for interactive API docs
+
+### Testing
+
 No automated tests are implemented yet.  
 Future updates will include:
 - Unit tests for backend API endpoints
@@ -58,34 +76,50 @@ Future updates will include:
 - JavaScript validation tests for data entry
 
 ## 🎈 Usage <a name="usage"></a>
-Data Entry Page
-1. Open `/frontend/entry/index.html`
-2. Fill out the form:
-   - Date, Person Responsible, Description, Amount, Category
-3. Click "Add Expense"  
-4. The table below will show all entered expenses
 
-Dashboard Page
-1. Open `/frontend/dashboard/index.html`
-2. Currently displays placeholder summary for stakeholders
-3. Future version will show total expenses, breakdowns by category, and trends
+### Data Entry Page
+1. Ensure the backend server is running (`python main.py` in the backend folder)
+2. Open `/frontend/entry/index.html` in your browser
+3. Fill out the form:
+   - Date
+   - Person Responsible
+   - Description
+   - Amount (UGX)
+   - Cost Centre
+4. Click "Add Expense"  
+5. The table below will show all entered expenses
+6. Total expenses automatically calculated and displayed
+7. Data is saved to the database and persists across sessions
+
+### Dashboard Page
+1. Open `/frontend/dashboard/index.html` (coming soon)
+2. View expense summaries and visualizations for stakeholders
+3. Future features: total expenses, breakdowns by cost centre, trends, and date filters
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-The project is intended to be deployed with a backend server (FastAPI) and PostgreSQL database.  
-Future deployment options:
-- Host the backend on Heroku, AWS, or any cloud provider
-- Frontend can be served via GitHub Pages or the backend server
-- Ensure PostgreSQL is accessible to both entry and dashboard pages
+The project uses FastAPI backend with SQLite database.
+
+Deployment options:
+- **Backend**: Host the backend on Heroku, AWS, Render, or any cloud provider that supports Python
+- **Database**: For production, upgrade from SQLite to PostgreSQL (SQLAlchemy makes this easy)
+- **Frontend**: Can be served via GitHub Pages or alongside the backend
+- **CORS**: Already configured to allow frontend-backend communication
+
+For production:
+1. Update database connection in `backend/database.py` to PostgreSQL
+2. Set environment variables for production configuration
+3. Use a process manager like Gunicorn with Uvicorn workers
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) - Frontend structure
 - [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - Styling
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Frontend behavior
-- [Python](https://www.python.org/) - Backend (future)
-- [FastAPI](https://fastapi.tiangolo.com/) - Backend framework (future)
-- [PostgreSQL](https://www.postgresql.org/) - Database (future)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Frontend behavior and API integration
+- [Python](https://www.python.org/) - Backend language
+- [FastAPI](https://fastapi.tiangolo.com/) - Backend REST API framework
+- [SQLAlchemy](https://www.sqlalchemy.org/) - Database ORM
+- [SQLite](https://www.sqlite.org/) - Database (can be upgraded to PostgreSQL)
 
 ## ✍️ Authors <a name = "authors"></a>
 
