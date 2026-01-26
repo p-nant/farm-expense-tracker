@@ -112,6 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
       maximumFractionDigits: 2
     });
 
+    // Highlight remittances with a different style
+    if (expense.cost_centre === 'Remittances') {
+      tr.classList.add('remittance-row');
+    }
+
     tr.append(
       createCell(expense.date),
       createCell(expense.person),
@@ -129,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteTd.appendChild(deleteBtn);
     tr.appendChild(deleteTd);
 
-    tbody.appendChild(tr);
+    tbody.prepend(tr);
 
     // Add delete functionality
     deleteBtn.addEventListener('click', async () => {

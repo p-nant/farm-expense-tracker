@@ -21,13 +21,46 @@
 
   <main>
     <section class="summary">
-      <h2>Expense Summary</h2>
+      <h2>Financial Summary</h2>
+      <p>Total Remittances (Funding): UGX <span id="dashTotalRemittances">0.00</span></p>
       <p>Total Expenses: UGX <span id="dashTotalExpenses">0.00</span></p>
+      <p>Net Balance: UGX <span id="dashNetBalance">0.00</span></p>
       <p>Total Records: <span id="dashExpenseCount">0</span></p>
     </section>
 
     <section class="expenses-section">
-      <h3>By Cost Centre</h3>
+      <h3>Quarterly Review</h3>
+      <div style="margin-bottom: 1rem;">
+        <label for="quarterSelector" style="font-weight: bold; margin-right: 10px;">Select Quarter:</label>
+        <select id="quarterSelector" style="padding: 5px 10px; font-size: 14px; border-radius: 4px;">
+          <option value="">Loading quarters...</option>
+        </select>
+      </div>
+      <div class="chart-row">
+        <div class="chart-card">
+          <h4 id="selectedQuarterTitle">Selected Quarter</h4>
+          <p>Total Expenses: UGX <span id="selectedQuarterExpenses">0.00</span></p>
+          <p>Total Remittances: UGX <span id="selectedQuarterRemittances">0.00</span></p>
+          <p>Net Balance: UGX <span id="selectedQuarterBalance">0.00</span></p>
+        </div>
+        <div class="chart-card">
+          <h4>Current Quarter</h4>
+          <p>Total Expenses: UGX <span id="currentQuarterExpenses">0.00</span></p>
+          <p>Total Remittances: UGX <span id="currentQuarterRemittances">0.00</span></p>
+          <p>Net Balance: UGX <span id="currentQuarterBalance">0.00</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="expenses-section">
+      <h3>Monthly Trend</h3>
+      <div class="chart-card">
+        <canvas id="monthlyTrendChart" width="800" height="300"></canvas>
+      </div>
+    </section>
+
+    <section class="expenses-section">
+      <h3>By Cost Centre (Expenses Only)</h3>
       <div class="chart-row">
         <div class="chart-card">
           <h4>Cost Centre Share</h4>
