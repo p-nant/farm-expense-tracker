@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'http://192.168.100.198:8000';
 
 let isError = false;
 
