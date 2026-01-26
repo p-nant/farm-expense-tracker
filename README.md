@@ -43,29 +43,35 @@ What things you need to install the software and how to install them.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running.
+1) **Clone the repository**
+```bash
+git clone https://github.com/p-nant/farm-expense-tracker
+cd farm-expense-tracker
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/p-nant/farm-expense-tracker
-   cd farm-expense-tracker
-   ```
+2) **Backend setup**
+```bash
+cd backend
+pip install -r requirements.txt
+python main.py
+```
+Backend runs at `http://localhost:8000`.
+For other devices on the same Wi‑Fi (e.g., mobile), point the frontend `API_BASE_URL` to `http://<YOUR_IP>:8000`.
 
-2. **Set up the backend:**
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   python main.py
-   ```
-   The backend will run on `http://localhost:8000`
+3) **Frontend (local)**
+- Open `frontend/entry/index.html` for data entry
+- Open `frontend/dashboard/index.html` for analytics
 
-3. **Open the frontend entry page in your browser:**
-   - Open `frontend/entry/index.html` in your browser
-   - The form will automatically connect to the backend API
-   - Data is persisted in `backend/expenses.db` SQLite database
+4) **Frontend (mobile on same Wi‑Fi)**
+- Find your computer IP (macOS):
+  ```bash
+  ifconfig | grep "inet " | grep -v 127.0.0.1
+  ```
+- Update `API_BASE_URL` in `frontend/entry/app.js` and `frontend/dashboard/app.js` to `http://<YOUR_IP>:8000`
+- On your phone (same Wi‑Fi), open `http://<YOUR_IP>:5500/frontend/entry/index.html` (or your static server URL)
 
-4. **View API documentation:**
-   - Navigate to `http://localhost:8000/docs` for interactive API docs
+5) **API docs**
+- Visit `http://localhost:8000/docs`
 
 ### Testing
 
@@ -92,9 +98,12 @@ Future updates will include:
 7. Data is saved to the database and persists across sessions
 
 ### Dashboard Page
-1. Open `/frontend/dashboard/index.html` (coming soon)
-2. View expense summaries and visualizations for stakeholders
-3. Future features: total expenses, breakdowns by cost centre, trends, and date filters
+Open `/frontend/dashboard/index.html` to see:
+- Financial summary: remittances (funding), expenses, net balance
+- Quarterly review with selectable quarter + current quarter comparison
+- Monthly trend line chart (expenses vs remittances, last 6 months)
+- Cost-centre breakdown pie (expenses only; remittances excluded)
+- Cost-centre table including remittances (funding highlighted separately)
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
