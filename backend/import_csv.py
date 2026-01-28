@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime
+from pathlib import Path
 from database import SessionLocal, engine, Base
 from models import Expense as ExpenseModel
 
@@ -8,18 +9,17 @@ Base.metadata.create_all(bind=engine)
 
 def parse_date(date_str):
     """Convert date string to Python date object"""
-    try:
-        # Try parsing M/D/YY format
-        dt = datetime.strptime(date_str, "%m/%d/%y")
-        return dt.date()  # Return date object, not string
-    except:
+    date_str = date_str.strip()
+    for fmt in ("%d/%m/%y", "%d/%m/%Y", "%m/%d/%y", "%m/%d/%Y", "%m/%d"):
         try:
-            # Try parsing other common formats
-            dt = datetime.strptime(date_str, "%d/%m/%Y")
-            return dt.date()  # Return date object, not string
-        except:
-            print(f"Warning: Could not parse date: {date_str}")
-            return None
+            dt = datetime.strptime(date_str, fmt)
+            if fmt == "%m/%d":
+                dt = dt.replace(year=datetime.today().year)
+            return dt.date()
+        except ValueError:
+            continue
+    print(f"Warning: Could not parse date: {date_str}")
+    return None
 
 def parse_amount(amount_str):
     """Parse amount string, handle negative values and formatting"""
@@ -41,18 +41,7 @@ def parse_amount(amount_str):
 def import_expenses():
     db = SessionLocal()
     
-    csv_file = "Mubende Costs Sept to Dec 2025.csv"
-    
-    # Cost centre columns (column index : name)
-    cost_centres = {
-        4: "Remittances",
-        5: "Admin Costs",
-        6: "Termination",
-        7: "AgroProjects",
-        8: "Construction",
-        9: "AgroForestry",
-        10: "Coffee"
-    }
+    csv_file = Path(__file__).resolve().parent / "Mubende Costs Sept to Dec 2025.csv"
     
     imported_count = 0
     skipped_count = 0
@@ -74,14 +63,14 @@ def import_expenses():
             print("❌ Could not find header row (missing 'Date'/'Person Responsible'). Aborting import.")
             return
         
-        # Find cost centre column indices from headers
-        cost_centre_cols = {}
+        # Find business unit column indices from headers
+        business_unit_cols = {}
         for idx, header in enumerate(headers):
             header_clean = header.strip() if header else ""
             if header_clean and header_clean not in ["Date", "Person Responsible", "Description", "Expense", ""]:
-                cost_centre_cols[idx] = header_clean
+                business_unit_cols[idx] = header_clean
         
-        print(f"Found cost centre columns: {cost_centre_cols}")
+        print(f"Found business unit columns: {business_unit_cols}")
         
         # Now read data starting from the row after headers
         for row_num, row in enumerate(reader, start=header_row_num + 1):
@@ -101,14 +90,14 @@ def import_expenses():
                 skipped_count += 1
                 continue
             
-            # Find which cost centre has a value
-            cost_centre = "N/A"
+            # Find which business unit has a value
+            business_unit = "N/A"
             amount = abs(expense_amount)  # Use absolute value of expense
             
-            for col_idx, centre_name in cost_centres.items():
+            for col_idx, centre_name in business_unit_cols.items():
                 if len(row) > col_idx and row[col_idx].strip():
-                    cost_centre = centre_name
-                    # Use the cost centre amount if different from expense
+                    business_unit = centre_name
+                    # Use the business unit amount if different from expense
                     centre_amount = parse_amount(row[col_idx])
                     if centre_amount != 0:
                         amount = abs(centre_amount)
@@ -124,7 +113,7 @@ def import_expenses():
                 person=person,
                 description=description,
                 amount=amount,
-                business_unit=cost_centre,
+                business_unit=business_unit,
                 project=None  # Imported data has no project info
             )
             

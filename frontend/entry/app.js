@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://192.168.1.175:8000';
+//const API_BASE_URL = 'http://192.168.1.175:8000';
+const API_BASE_URL = 'http://localhost:8000'; // Use localhost for local development
 
 let isError = false;
 
@@ -37,8 +38,21 @@ async function deleteExpense(id) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const newExpenseButton = document.getElementById('new-expense-button');
+  const expenseFormCard = document.getElementById('expenseFormCard');
   const form = document.getElementById('expenseForm');
   const tbody = document.querySelector('#expensesTable tbody');
+
+  if (newExpenseButton && expenseFormCard) {
+    newExpenseButton.addEventListener('click', () => {
+      const isHidden = expenseFormCard.style.display === 'none';
+      expenseFormCard.style.display = isHidden ? 'block' : 'none';
+      newExpenseButton.textContent = isHidden ? 'Hide Form' : 'Add New Expense';
+      if (isHidden) {
+        expenseFormCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
 
   // Load existing expenses on page load
   loadExpenses();

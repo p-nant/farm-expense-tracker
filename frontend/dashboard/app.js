@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://192.168.1.175:8000';
+const API_BASE_URL = 'http://localhost:8000';
 
 document.addEventListener('DOMContentLoaded', () => {
   const totalExpensesSpan = document.getElementById('dashTotalExpenses');
