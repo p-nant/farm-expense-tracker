@@ -3,7 +3,7 @@
  <img width=200px height=200px src="" alt=""></a>
 </p>
 
-<h3 align="center">Farm Expense Tracker</h3>
+<h3 align="center">Farm Expense Tracker(Early Farm Management System)</h3>
 
 ---
 
@@ -23,9 +23,19 @@
 
 ## 🧐 About <a name = "about"></a>
 
-A simple full-stack web application to track farm expenses, designed with separate layers:
-1. Data Entry - to be used by the farm staff to input expenses related to the farm activities. 
-2. Dashboard - used by stakeholders to view summaries, totals, and trends for decision making.
+A full-stack farm operations and expense tracker web application (Early Farm Management System) designed to help farms track costs with planned crop-based management features that will help them gain financial insights. The system is structured into two main layers:
+1. Data Entry 
+- Register crops
+- Record expenses linked to specific crops
+- Capture farm activity costs in real time
+
+2. Dashboard 
+- View total expenses by crop
+- Monitor monthly spending trends
+- Compare crop performance
+- Support farm decision-making 
+
+The project is evolving toward a **Farm Management System**, starting with crop tracking and expense analytics.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -83,15 +93,26 @@ Future updates will include:
 
 ## 🎈 Usage <a name="usage"></a>
 
+### Crop Management
+1. Open `/frontend/entry/index.html`
+2. Navigate to the Crops section
+3. Add a new crop:
+  - Crop name
+  - Planting date
+  - Location/plot (optional)
+  - Image for verification
+4. Saved crops become available when entering expenses
+
 ### Data Entry Page
 1. Ensure the backend server is running (`python main.py` in the backend folder)
 2. Open `/frontend/entry/index.html` in your browser
 3. Fill out the form:
-   - Date
-   - Person Responsible
-   - Description
-   - Amount (UGX)
-   - Cost Centre
+  - Date 
+  - Crop
+  - Person Responsible
+  - Description
+  - Amount (UGX)
+  - Business Unit
 4. Click "Add Expense"  
 5. The table below will show all entered expenses
 6. Total expenses automatically calculated and displayed
@@ -100,25 +121,40 @@ Future updates will include:
 ### Dashboard Page
 Open `/frontend/dashboard/index.html` to see:
 - Financial summary: remittances (funding), expenses, net balance
+- Expense totals by crop
 - Quarterly review with selectable quarter + current quarter comparison
 - Monthly trend line chart (expenses vs remittances, last 6 months)
-- Cost-centre breakdown pie (expenses only; remittances excluded)
-- Cost-centre table including remittances (funding highlighted separately)
+- Business unit breakdown pie (expenses only; remittances excluded)
+- Business unit table including remittances (funding highlighted separately) ***
+
+## ✨ Current Features
+- Financial dashboard with trends and summaries
+- SQLite database persistence
+- REST API built with FastAPI
+- Frontend dashboards using vanilla JavaScript
+
+Planned:
+- Crop registration
+- Expense tracking linked to crops
+- Activity logging (planting, weeding, harvesting)
+- Harvest and sales tracking
+- Profit per crop analytics
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-The project uses FastAPI backend with SQLite database.
+The project currently runs locally using a FastAPI backend with SQLite database.
 
-Deployment options:
-- **Backend**: Host the backend on ngrok, Heroku, AWS, Render, or any cloud provider that supports Python
+Planned deployment setup:
+- **Backend**: Render or Railway (Python FastAPI hosting)
 - **Database**: For production, upgrade from SQLite to PostgreSQL (SQLAlchemy makes this easy)
-- **Frontend**: Can be served via GitHub Pages or alongside the backend
+- **Frontend**: GitHub Pages or alongside the backend
 - **CORS**: Already configured to allow frontend-backend communication
 
-For production:
-1. Update database connection in `backend/database.py` to PostgreSQL
-2. Set environment variables for production configuration
-3. Use a process manager like Gunicorn with Uvicorn workers
+Production checklist:
+1. Migrate SQLite to PostgreSQL
+2. Set environment variables
+3. Deploy FastAPI backend
+4. Serve frontend statically
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
@@ -136,6 +172,6 @@ For production:
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- Inspired by farm management and expense tracking needs
+- Inspired by farm management needs
 - Thanks to tutorials and online resources on FastAPI, HTML/CSS, and PostgreSQL
 - freeCodeCamp

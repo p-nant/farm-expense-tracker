@@ -23,11 +23,11 @@ app.add_middleware(
 )
 
 # Routes
-@app.get("/")
+@app.get("/") #Home page
 def read_root():
     return {"message": "Expense Tracker API"}
 
-@app.post("/api/expenses", response_model=ExpenseResponse)
+@app.post("/api/expenses", response_model=ExpenseResponse) #add new expense(from frontend) and saves(to database)
 def create_expense(expense: ExpenseCreate, db: Session = Depends(get_db)):
     db_expense = ExpenseModel(**expense.dict())
     db.add(db_expense)
@@ -35,11 +35,11 @@ def create_expense(expense: ExpenseCreate, db: Session = Depends(get_db)):
     db.refresh(db_expense)
     return db_expense
 
-@app.get("/api/expenses", response_model=list[ExpenseResponse])
+@app.get("/api/expenses", response_model=list[ExpenseResponse]) #retrives all expenses from database to frontend for display
 def get_expenses(db: Session = Depends(get_db)):
     return db.query(ExpenseModel).all()
 
-@app.get("/api/expenses/{expense_id}", response_model=ExpenseResponse)
+@app.get("/api/expenses/{expense_id}", response_model=ExpenseResponse) #retrives single expense by id from database to frontend for display
 def get_expense(expense_id: int, db: Session = Depends(get_db)):
     expense = db.query(ExpenseModel).filter(ExpenseModel.id == expense_id).first()
     if not expense:
@@ -59,7 +59,7 @@ def update_expense(expense_id: int, expense: ExpenseCreate, db: Session = Depend
     db.refresh(db_expense)
     return db_expense
 
-@app.delete("/api/expenses/{expense_id}")
+@app.delete("/api/expenses/{expense_id}") #deletes expense by id from database
 def delete_expense(expense_id: int, db: Session = Depends(get_db)):
     db_expense = db.query(ExpenseModel).filter(ExpenseModel.id == expense_id).first()
     if not db_expense:
@@ -69,6 +69,6 @@ def delete_expense(expense_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Expense deleted"}
 
-if __name__ == "__main__":
+if __name__ == "__main__": #runs the application (starts the server)
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
